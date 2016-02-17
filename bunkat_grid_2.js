@@ -7,7 +7,7 @@
 *   @param square       true/false if you want the height to 
 *                           match the (calculated first) width
 */
-function calendarWeekHour(anchorElement, width, height, isSquare)
+function grid(anchorElement, width, height, isSquare)
 {
     var calData = randomData(width, height, isSquare);
     console.log("calData: " + JSON.stringify(calData));
