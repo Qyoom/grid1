@@ -52,26 +52,18 @@ function grid(anchorElement, numCols, numRows, cellSize)
 ////////////////////////////////////////////////////////////////////////
 
 /**
-*   randomData()        returns an array: [
-                                            [{anchorElement:value, ...}],
-                                            [{anchorElement:value, ...}],
-                                            [...],...,
-                                            ];
-                        ~ [
-                            [hour1, hour2, hour3, ...],
-                            [hour1, hour2, hour3, ...]
-                          ]
-
-*/
+ *   randomData()        returns an array: []
+ *
+ */
 function randomData(gridWidth, gridHeight, numCols, numRows)
 {
     var data = new Array();
-    var gridItemWidth = gridWidth / numCols;
-    var gridItemHeight = gridItemWidth;
-    var startX = gridItemWidth / 2;
-    var startY = gridItemHeight / 2;
-    var stepX = gridItemWidth;
-    var stepY = gridItemHeight;
+    var cellWidth = gridWidth / numCols;
+    var cellHeight = cellWidth;
+    var startX = cellWidth / 2;
+    var startY = cellHeight / 2;
+    var stepX = cellWidth;
+    var stepY = cellHeight;
     var xpos = startX;
     var ypos = startY;
     var newValue = 0;
@@ -86,8 +78,8 @@ function randomData(gridWidth, gridHeight, numCols, numRows)
             data[index_a].push({
               time: index_b, 
               value: newValue,
-              width: gridItemWidth,
-              height: gridItemHeight,
+              width: cellWidth,
+              height: cellHeight,
               x: xpos,
               y: ypos,
               count: count
@@ -101,7 +93,7 @@ function randomData(gridWidth, gridHeight, numCols, numRows)
     return data;
 }
 
-
+// Starts here
 grid('#grid', 40, 20, 25);
 
 
