@@ -101,5 +101,7 @@ function randomData(gridWidth, gridHeight, numCols, numRows)
     return data;
 }
 
+grid('#grid', 900, 400, 20, 10);
+
 
 
