@@ -1,15 +1,17 @@
 /**
-*   calendarWeekHour    Setup a week-hour grid: 
-*                           7 Rows (days), 24 Columns (hours)
-*   @param anchorElement           div id tag starting with #
-*   @param width        width of the grid in pixels
-*   @param height       height of the grid in pixels
-*   @param square       true/false if you want the height to 
-*                           match the (calculated first) width
+*   grid                  Setup a search space grid: 
+*                         Configurable number of rows and columns
+*   @param anchorElement  div id tag starting with #
+*   @param width          width of the grid in pixels
+*   @param height         height of the grid in pixels
+*   @param iSquare        true/false if you want the height to 
+*                         match the (calculated first) width
+*
+*                         TODO: Hardwire square cell.
 */
-function grid(anchorElement, width, height, isSquare)
+function grid(anchorElement, width, height, numCols, numRows)
 {
-    var calData = randomData(width, height, isSquare);
+    var calData = randomData(width, height, numCols, numRows);
     console.log("calData: " + JSON.stringify(calData));
 
     var marginRight = 40;
@@ -61,11 +63,11 @@ function grid(anchorElement, width, height, isSquare)
                           ]
 
 */
-function randomData(gridWidth, gridHeight, isSquare)
+function randomData(gridWidth, gridHeight, numCols, numRows)
 {
     var data = new Array();
-    var gridItemWidth = gridWidth / 24;
-    var gridItemHeight = (isSquare) ? gridItemWidth : gridHeight / 7;
+    var gridItemWidth = gridWidth / numCols;
+    var gridItemHeight = gridItemWidth;
     var startX = gridItemWidth / 2;
     var startY = gridItemHeight / 2;
     var stepX = gridItemWidth;
@@ -75,10 +77,10 @@ function randomData(gridWidth, gridHeight, isSquare)
     var newValue = 0;
     var count = 0;
 
-    for (var index_a = 0; index_a < 7; index_a++)
+    for (var index_a = 0; index_a < numRows; index_a++)
     {
         data.push(new Array());
-        for (var index_b = 0; index_b < 24; index_b++)
+        for (var index_b = 0; index_b < numCols; index_b++)
         {
             newValue = Math.round(Math.random() * (100 - 1) + 1);
             data[index_a].push({
