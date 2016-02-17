@@ -2,23 +2,23 @@
 *   grid                  Setup a search space grid: 
 *                         Configurable number of rows and columns
 *   @param anchorElement  div id tag starting with #
-*   @param width          width of the grid in pixels
-*   @param height         height of the grid in pixels
-*   @param iSquare        true/false if you want the height to 
-*                         match the (calculated first) width
-*
-*                         TODO: Hardwire square cell.
+*   @param numRows        Number of rows in grid
+*   @param numCols        Number of columns in grid
+*   @param cellSize       Size of cell in pixels
 */
-function grid(anchorElement, width, height, numCols, numRows)
+function grid(anchorElement, numCols, numRows, cellSize)
 {
+    var marginHoriz = 40;
+    var marginVert = 40;
+    var width = numCols * cellSize;
+    var height = numRows * cellSize;
+
     var calData = randomData(width, height, numCols, numRows);
     console.log("calData: " + JSON.stringify(calData));
-
-    var marginRight = 40;
     
     var grid = d3.select(anchorElement).append("svg")
-                    .attr("width", width + marginRight)
-                    .attr("height", height)
+                    .attr("width", width + marginHoriz)
+                    .attr("height", height + marginVert)
                     .attr("class", "grid");
 
     var row = grid.selectAll(".row")
@@ -101,7 +101,8 @@ function randomData(gridWidth, gridHeight, numCols, numRows)
     return data;
 }
 
-grid('#grid', 900, 400, 20, 10);
+
+grid('#grid', 40, 20, 25);
 
 
 
