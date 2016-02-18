@@ -14,9 +14,16 @@ function grid()
     var height = numRows * cellSize;
 
     var gridData = cellData();
+
+    // TODO: NIX Diagnostics
     console.log("gridData num rows: " + gridData.length);
     console.log("gridData num cols: " + gridData[1].length);
-    console.log("gridData: " + JSON.stringify(gridData));
+    //console.log("gridData: " + JSON.stringify(gridData));
+    _.each(gridData, function(row) {
+        _.each(row, function(cell) {
+            console.log("grid TOP, cell: " + JSON.stringify(cell));
+        });
+    });
     
     var grid = d3.select(anchorElement).append("svg")
         .attr("width", width + marginHoriz)
@@ -116,8 +123,7 @@ var directions = [
 ];
 
 function neighbors(cell) {
-    console.log("cell: " + JSON.stringify(cell));
-    //console.log("cell.id: " + JSON.stringify(cell.id));
+    console.log("neighbors, cell: " + JSON.stringify(cell));
     //console.log("cell.index: " + JSON.stringify(cell.index));
 
     var result = [];
@@ -138,12 +144,19 @@ function neighbors(cell) {
 }
 
 function nodesContains(neighbor) {
+    console.log("--> nodesContains, neighbor: " + neighbor);
+    console.log("neighbor[0] < 0: " + neighbor[0] < 0);
+    console.log("numCols <= neighbor[0]: " + numCols <= neighbor[0]);
+    console.log("neighbor[1] < 0: " + neighbor[1] < 0);
+    console.log("numRows <= neighbor[1]: " + numRows <= neighbor[1]);
+
     result = true;
     // test on range
     if(
         neighbor[0] < 0 || numCols <= neighbor[0] ||
         neighbor[1] < 0 || numRows <= neighbor[1]
     ) result = false;
+    console.log("nodesContains, result: " + result);
 
     if(!result) console.log("<2>nodesContains " + neighbor + " " + result);
     return result;
