@@ -123,7 +123,7 @@ var directions = [
 ];
 
 function neighbors(cell) {
-    console.log("neighbors, cell: " + JSON.stringify(cell));
+    console.log("==> neighbors, cell: " + JSON.stringify(cell));
     //console.log("cell.index: " + JSON.stringify(cell.index));
 
     var result = [];
@@ -145,18 +145,17 @@ function neighbors(cell) {
 
 function nodesContains(neighbor) {
     console.log("--> nodesContains, neighbor: " + neighbor);
-    console.log("neighbor[0] < 0: " + neighbor[0] < 0);
-    console.log("numCols <= neighbor[0]: " + numCols <= neighbor[0]);
-    console.log("neighbor[1] < 0: " + neighbor[1] < 0);
-    console.log("numRows <= neighbor[1]: " + numRows <= neighbor[1]);
+    console.log(neighbor[0] < 0);
+    console.log(numCols <= neighbor[0]);
+    console.log(neighbor[1] < 0);
+    console.log(numRows <= neighbor[1]);
 
     result = true;
     // test on range
     if(
-        neighbor[0] < 0 || numCols <= neighbor[0] ||
-        neighbor[1] < 0 || numRows <= neighbor[1]
+        neighbor[0] < 0 || numRows <= neighbor[0] ||
+        neighbor[1] < 0 || numCols <= neighbor[1]
     ) result = false;
-    console.log("nodesContains, result: " + result);
 
     if(!result) console.log("<2>nodesContains " + neighbor + " " + result);
     return result;
