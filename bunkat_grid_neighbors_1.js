@@ -39,6 +39,8 @@ function grid()
         .on('mouseover', function() {
             d3.select(this)
                 .style('fill', '#0F0');
+
+            neighbors(this);
         })
         .on('mouseout', function() {
             d3.select(this)
@@ -114,7 +116,7 @@ var directions = [
 ];
 
 function neighbors(cell) {
-    //console.log("node: " + JSON.stringify(node));
+    console.log("cell: " + JSON.stringify(cell));
 
     var result = [];
 
@@ -125,7 +127,7 @@ function neighbors(cell) {
         ];
 
         if(nodesContains(neighbor)) {
-            //console.log("neighbor: " + JSON.stringify(neighbor));
+            console.log("<1>neighbor: " + JSON.stringify(neighbor));
             result.push(neighbor);
         }
     });
@@ -141,7 +143,7 @@ function nodesContains(neighbor) {
         neighbor[1] < 0 || numRows <= neighbor[1]
     ) result = false;
 
-    //if(!result) console.log("nodesContains " + neighbor + " " + result);
+    if(!result) console.log("<2>nodesContains " + neighbor + " " + result);
     return result;
 }
 
