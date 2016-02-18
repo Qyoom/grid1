@@ -14,9 +14,9 @@ function grid()
     var height = numRows * cellSize;
 
     var gridData = cellData();
-    //console.log("gridData: " + JSON.stringify(gridData));
     console.log("gridData num rows: " + gridData.length);
     console.log("gridData num cols: " + gridData[1].length);
+    console.log("gridData: " + JSON.stringify(gridData));
     
     var grid = d3.select(anchorElement).append("svg")
         .attr("width", width + marginHoriz)
@@ -40,7 +40,7 @@ function grid()
             d3.select(this)
                 .style('fill', '#0F0');
 
-            neighbors(this);
+            //neighbors(this);
         })
         .on('mouseout', function() {
             d3.select(this)
@@ -71,26 +71,27 @@ function cellData()
     var count = 0;
 
     // Row iterator
-    for (var index_a = 0; index_a < numRows; index_a++)
+    for (var row = 0; row < numRows; row++)
     {
         // Row array
         data.push(new Array());
 
         // Column iterator
-        for (var index_b = 0; index_b < numCols; index_b++)
+        for (var col = 0; col < numCols; col++)
         {
             // TODO: What is the use of value? Make it uniform? Put it to some good use?
-            newValue = Math.round(Math.random() * (100 - 1) + 1);
+            //newValue = Math.round(Math.random() * (100 - 1) + 1);
+            var newValue = -1;
 
             // Columnar cell data
-            data[index_a].push({
-              id: index_b, 
+            data[row].push({
+              id: count,
+              index: [row, col],
               value: newValue,
               width: cellSize,
               height: cellSize,
               x: xPos,
-              y: yPos,
-              count: count // TODO: Same as id
+              y: yPos
             });
 
             xPos += stepX;
