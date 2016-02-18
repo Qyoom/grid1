@@ -17,36 +17,36 @@ function grid(anchorElement, numCols, numRows, cellSize)
     console.log("gridData: " + JSON.stringify(gridData));
     
     var grid = d3.select(anchorElement).append("svg")
-                    .attr("width", width + marginHoriz)
-                    .attr("height", height + marginVert)
-                    .attr("class", "grid");
+        .attr("width", width + marginHoriz)
+        .attr("height", height + marginVert)
+        .attr("class", "grid");
 
     var row = grid.selectAll(".row")
-                  .data(gridData)
-                .enter().append("svg:g")
-                  .attr("class", "row");
+        .data(gridData)
+      .enter().append("svg:g")
+        .attr("class", "row");
 
     var col = row.selectAll(".cell")
-                 .data(function (d) { return d; })
-                .enter().append("svg:rect")
-                 .attr("class", "cell")
-                 .attr("x", function(d) { return d.x; })
-                 .attr("y", function(d) { return d.y; })
-                 .attr("width", function(d) { return d.width; })
-                 .attr("height", function(d) { return d.height; })
-                 .on('mouseover', function() {
-                    d3.select(this)
-                        .style('fill', '#0F0');
-                 })
-                 .on('mouseout', function() {
-                    d3.select(this)
-                        .style('fill', '#FFF');
-                 })
-                 .on('click', function() {
-                    console.log(d3.select(this));
-                 })
-                 .style("fill", '#FFF')
-                 .style("stroke", '#555');
+        .data(function (d) { return d; })
+      .enter().append("svg:rect")
+        .attr("class", "cell")
+        .attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; })
+        .attr("width", function(d) { return d.width; })
+        .attr("height", function(d) { return d.height; })
+        .on('mouseover', function() {
+            d3.select(this)
+                .style('fill', '#0F0');
+        })
+        .on('mouseout', function() {
+            d3.select(this)
+                .style('fill', '#FFF');
+        })
+        .on('click', function() {
+            console.log(d3.select(this));
+        })
+        .style("fill", '#FFF')
+        .style("stroke", '#555');
 }
 
 ////////////////////////////////////////////////////////////////////////
