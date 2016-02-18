@@ -52,7 +52,7 @@ function grid(anchorElement, numCols, numRows, cellSize)
 ////////////////////////////////////////////////////////////////////////
 
 /**
- *   randomData()        returns an array: []
+ *   cellData()        returns an two dimensional array of rows and columns
  *
  */
 function cellData(numCols, numRows, cellSize)
