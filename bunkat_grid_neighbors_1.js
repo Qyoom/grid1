@@ -36,11 +36,11 @@ function grid()
         .attr("y", function(d) { return d.y; })
         .attr("width", function(d) { return d.width; })
         .attr("height", function(d) { return d.height; })
-        .on('mouseover', function() {
+        .on('mouseover', function(d) {
             d3.select(this)
                 .style('fill', '#0F0');
 
-            //neighbors(this);
+            neighbors(d);
         })
         .on('mouseout', function() {
             d3.select(this)
@@ -55,7 +55,6 @@ function grid()
 
 /**
  *   cellData()        returns an two dimensional array of rows and columns
- *
  */
 function cellData()
 {
@@ -118,13 +117,15 @@ var directions = [
 
 function neighbors(cell) {
     console.log("cell: " + JSON.stringify(cell));
+    //console.log("cell.id: " + JSON.stringify(cell.id));
+    //console.log("cell.index: " + JSON.stringify(cell.index));
 
     var result = [];
 
     _.each(directions, function(dir) {
         var neighbor = [
-            cell.x + dir[0], // x
-            cell.y + dir[1]  // y
+            cell.index[0] + dir[0], // x
+            cell.index[1] + dir[1]  // y
         ];
 
         if(nodesContains(neighbor)) {
