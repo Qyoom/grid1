@@ -13,8 +13,8 @@ function grid(anchorElement, numCols, numRows, cellSize)
     var width = numCols * cellSize;
     var height = numRows * cellSize;
 
-    var calData = randomData(width, height, numCols, numRows);
-    console.log("calData: " + JSON.stringify(calData));
+    var gridData = cellData(numCols, numRows, cellSize);
+    console.log("gridData: " + JSON.stringify(gridData));
     
     var grid = d3.select(anchorElement).append("svg")
                     .attr("width", width + marginHoriz)
@@ -22,7 +22,7 @@ function grid(anchorElement, numCols, numRows, cellSize)
                     .attr("class", "grid");
 
     var row = grid.selectAll(".row")
-                  .data(calData)
+                  .data(gridData)
                 .enter().append("svg:g")
                   .attr("class", "row");
 
@@ -55,40 +55,47 @@ function grid(anchorElement, numCols, numRows, cellSize)
  *   randomData()        returns an array: []
  *
  */
-function randomData(gridWidth, gridHeight, numCols, numRows)
+function cellData(numCols, numRows, cellSize)
 {
     var data = new Array();
-    var cellWidth = gridWidth / numCols;
-    var cellHeight = cellWidth;
-    var startX = cellWidth / 2;
-    var startY = cellHeight / 2;
-    var stepX = cellWidth;
-    var stepY = cellHeight;
-    var xpos = startX;
-    var ypos = startY;
+
+    var startX = cellSize / 2;
+    var startY = cellSize / 2;
+    var stepX = cellSize;
+    var stepY = cellSize;
+    var xPos = startX;
+    var yPos = startY;
     var newValue = 0;
     var count = 0;
 
+    // Row iterator
     for (var index_a = 0; index_a < numRows; index_a++)
     {
+        // Row array
         data.push(new Array());
+
+        // Column iterator
         for (var index_b = 0; index_b < numCols; index_b++)
         {
+            // TODO: What is the use of value? Make it uniform? Put it to some good use?
             newValue = Math.round(Math.random() * (100 - 1) + 1);
+
+            // Columnar cell data
             data[index_a].push({
-              time: index_b, 
+              id: index_b, 
               value: newValue,
-              width: cellWidth,
-              height: cellHeight,
-              x: xpos,
-              y: ypos,
-              count: count
+              width: cellSize,
+              height: cellSize,
+              x: xPos,
+              y: yPos,
+              count: count // TODO: Same as id
             });
-            xpos += stepX;
+
+            xPos += stepX;
             count += 1;
         }
-        xpos = startX;
-        ypos += stepY;
+        xPos = startX;
+        yPos += stepY;
     }
     return data;
 }
