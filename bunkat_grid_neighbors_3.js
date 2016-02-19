@@ -1,10 +1,6 @@
 /**
 *   grid                  Setup a search space grid: 
 *                         Configurable number of rows and columns
-*   @param anchorElement  div id tag starting with #
-*   @param numRows        Number of rows in grid
-*   @param numCols        Number of columns in grid
-*   @param cellSize       Size of cell in pixels
 */
 function grid()
 {
@@ -17,7 +13,7 @@ function grid()
 
     /** TODO: NIX Diagnostics *******************************/
     console.log("gridData.length: " + gridData.length);
-    console.log("gridData: " + JSON.stringify(gridData));
+    //console.log("gridData: " + JSON.stringify(gridData));
     console.log("each cell:")
     _.each(gridData, function(cell) {
         console.log("cell: " + JSON.stringify(cell));
@@ -129,22 +125,16 @@ function neighbors(cell) {
     var result = [];
 
     _.each(directions, function(dir) {
-        var neighbor = [
+        var neighborIndex = [
             cell.index[0] + dir[0], // x
             cell.index[1] + dir[1]  // y
         ];
 
-        console.log("<1>neighbor: " + JSON.stringify(neighbor));
+        console.log("neighborIndex: " + JSON.stringify(neighborIndex));
 
-        if(nodesContains(neighbor)) {
-            var rows = d3.selectAll(".row");
-            console.log("~~> neighbors, rows: " + rows);
-            var neybRow = rows.filter(function(d, i) {
-                console.log("~~> d: " + JSON.stringify(d));
-                //d.index[0] == neighbor[0];
-            });
-            console.log("~~> neybRow: " + neybRow);
-            result.push(neighbor);
+        if(nodesContains(neighborIndex)) {
+            
+            result.push(neighborIndex);
         }
     });
 
@@ -152,12 +142,6 @@ function neighbors(cell) {
 }
 
 function nodesContains(neighbor) {
-    console.log("--> nodesContains, neighbor: " + neighbor);
-    console.log(neighbor[0] < 0);
-    console.log(numCols <= neighbor[0]);
-    console.log(neighbor[1] < 0);
-    console.log(numRows <= neighbor[1]);
-
     result = true;
     // test on range
     if(
@@ -165,14 +149,14 @@ function nodesContains(neighbor) {
         neighbor[1] < 0 || numCols <= neighbor[1]
     ) result = false;
 
-    if(!result) console.log("<2>nodesContains " + neighbor + " " + result);
+    console.log("grid contains " + JSON.stringify(neighbor) + " " + result);
     return result;
 }
 
 var anchorElement = '#grid';
-var numCols = 10;
-var numRows = 5;
-var cellSize = 25;
+var numCols = 20;
+var numRows = 15;
+var cellSize = 10;
 
 // Starts here
 grid();
