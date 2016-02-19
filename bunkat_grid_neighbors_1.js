@@ -15,15 +15,18 @@ function grid()
 
     var gridData = cellData();
 
-    // TODO: NIX Diagnostics
+    /** TODO: NIX Diagnostics *******************************/
     console.log("gridData num rows: " + gridData.length);
     console.log("gridData num cols: " + gridData[1].length);
-    //console.log("gridData: " + JSON.stringify(gridData));
+    console.log("gridData: " + JSON.stringify(gridData));
+    console.log("each cell:")
     _.each(gridData, function(row) {
         _.each(row, function(cell) {
             console.log("grid TOP, cell: " + JSON.stringify(cell));
         });
     });
+    console.log("--------------------------")
+    /********************************************************/
     
     var grid = d3.select(anchorElement).append("svg")
         .attr("width", width + marginHoriz)
@@ -66,7 +69,7 @@ function grid()
  */
 function cellData()
 {
-    var data = new Array();
+    var data = new Array(); // array of rows
 
     var startX = cellSize / 2;
     var startY = cellSize / 2;
@@ -81,9 +84,9 @@ function cellData()
     for (var row = 0; row < numRows; row++)
     {
         // Row array
-        data.push(new Array());
+        data.push(new Array()); // cells in row
 
-        // Column iterator
+        // Column/cell iterator
         for (var col = 0; col < numCols; col++)
         {
             // TODO: What is the use of value? Make it uniform? Put it to some good use?
@@ -135,8 +138,9 @@ function neighbors(cell) {
             cell.index[1] + dir[1]  // y
         ];
 
+        console.log("<1>neighbor: " + JSON.stringify(neighbor));
+
         if(nodesContains(neighbor)) {
-            console.log("<1>neighbor: " + JSON.stringify(neighbor));
             var rows = d3.selectAll(".row");
             console.log("~~> neighbors, rows: " + rows);
             var neybRow = rows.filter(function(d, i) {
