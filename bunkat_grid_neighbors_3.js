@@ -9,27 +9,26 @@ function grid()
     var width = numCols * cellSize;
     var height = numRows * cellSize;
 
+    // mouseover, mouseout
+    var over = 1;
+    var out = 2;
+
     var gridData = cellData();
 
     /** TODO: NIX Diagnostics *******************************/
-    console.log("gridData.length: " + gridData.length);
+    //console.log("gridData.length: " + gridData.length);
     //console.log("gridData: " + JSON.stringify(gridData));
-    console.log("each cell:")
-    _.each(gridData, function(cell) {
-        console.log("cell: " + JSON.stringify(cell));
-    });
-    console.log("--------------------------")
+    // console.log("each cell:")
+    // _.each(gridData, function(cell) {
+    //     console.log("cell: " + JSON.stringify(cell));
+    // });
+    // console.log("--------------------------")
     /********************************************************/
     
     var grid = d3.select(anchorElement).append("svg")
         .attr("width", width + marginHoriz)
         .attr("height", height + marginVert)
         .attr("class", "grid");
-
-    // var row = grid.selectAll(".row")
-    //     .data(gridData)
-    //   .enter().append("svg:g")
-    //     .attr("class", "row");
 
     var cells = grid.selectAll(".cell")
         .data(gridData, function (d) { return d.id; }) // bind by key, which is id, which is row_col
@@ -43,13 +42,12 @@ function grid()
         .on('mouseover', function(d) {
             d3.select(this)
                 .style('fill', '#0F0');
-
-            var neybs = neighbors(d);
-            console.log("mouseover, neighbors: " + JSON.stringify(neybs));
+            neighbors(d, over);
         })
-        .on('mouseout', function() {
+        .on('mouseout', function(d) {
             d3.select(this)
                 .style('fill', '#FFF');
+            neighbors(d, out);
         })
         .on('click', function() {
             console.log(d3.select(this));
@@ -120,11 +118,11 @@ var directions = [
     [-1, 1]   // south-west
 ];
 
-function neighbors(cell) {
-    console.log("==> neighbors, cell: " + JSON.stringify(cell));
+function neighbors(cell, overout) {
+    //console.log("==> neighbors, cell: " + JSON.stringify(cell));
     //console.log("cell.index: " + JSON.stringify(cell.index));
 
-    var result = [];
+    //var result = [];
 
     // loop all 8 directions
     _.each(directions, function(dir) {
@@ -133,15 +131,15 @@ function neighbors(cell) {
             cell.index[1] + dir[1]  // y
         ];
 
-        console.log("neighborIndex: " + JSON.stringify(neighborIndex));
+        //console.log("neighborIndex: " + JSON.stringify(neighborIndex));
 
         if(nodesContains(neighborIndex)) {
             var neighbor = d3.select("#r" + neighborIndex[0] + "c" + neighborIndex[1]);
-            result.push(neighbor);
+            neighbor.style("fill", overout==1 ? "red" : "#FFF");
         }
     });
 
-    return d3.merge(d3.merge(result));
+    //return d3.merge(d3.merge(result));
 }
 
 function nodesContains(neighbor) {
@@ -152,14 +150,14 @@ function nodesContains(neighbor) {
         neighbor[1] < 0 || numCols <= neighbor[1]
     ) result = false;
 
-    console.log("grid contains " + JSON.stringify(neighbor) + " " + result);
+    //console.log("grid contains " + JSON.stringify(neighbor) + " " + result);
     return result;
 }
 
 var anchorElement = '#grid';
-var numCols = 11;
-var numRows = 11;
-var cellSize = 10;
+var numCols = 25;
+var numRows = 15;
+var cellSize = 20;
 
 // Starts here
 grid();
