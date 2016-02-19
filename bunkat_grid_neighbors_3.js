@@ -32,7 +32,7 @@ function grid()
     //     .attr("class", "row");
 
     var cells = grid.selectAll(".cell")
-        .data(gridData, function (d) { return d.id; }) // bind by key
+        .data(gridData, function (d) { return d.id; }) // bind by key, which is id, which is row_col
       .enter().append("svg:rect")
         .attr("id", function(d) { return d.id; })
         .attr("class", "cell")
@@ -45,6 +45,7 @@ function grid()
                 .style('fill', '#0F0');
 
             var neybs = neighbors(d);
+            console.log("mouseover, neighbors: " + JSON.stringify(neybs));
         })
         .on('mouseout', function() {
             d3.select(this)
@@ -86,8 +87,9 @@ function cellData()
 
             // cell data
             data.push({
-              id: 'c' + count,
+              count: count,
               index: [row, col],
+              id: 'r' + row + 'c' + col,
               value: newValue,
               width: cellSize,
               height: cellSize,
@@ -124,6 +126,7 @@ function neighbors(cell) {
 
     var result = [];
 
+    // loop all 8 directions
     _.each(directions, function(dir) {
         var neighborIndex = [
             cell.index[0] + dir[0], // x
@@ -133,12 +136,12 @@ function neighbors(cell) {
         console.log("neighborIndex: " + JSON.stringify(neighborIndex));
 
         if(nodesContains(neighborIndex)) {
-            
-            result.push(neighborIndex);
+            var neighbor = d3.select("#r" + neighborIndex[0] + "c" + neighborIndex[1]);
+            result.push(neighbor);
         }
     });
 
-    return result;
+    return d3.merge(d3.merge(result));
 }
 
 function nodesContains(neighbor) {
@@ -154,8 +157,8 @@ function nodesContains(neighbor) {
 }
 
 var anchorElement = '#grid';
-var numCols = 20;
-var numRows = 15;
+var numCols = 11;
+var numRows = 11;
 var cellSize = 10;
 
 // Starts here
