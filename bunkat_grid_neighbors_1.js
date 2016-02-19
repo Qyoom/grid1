@@ -38,6 +38,7 @@ function grid()
     var col = row.selectAll(".cell")
         .data(function (d) { return d; })
       .enter().append("svg:rect")
+        .attr("id", function(d) { return d.id; })
         .attr("class", "cell")
         .attr("x", function(d) { return d.x; })
         .attr("y", function(d) { return d.y; })
@@ -47,7 +48,7 @@ function grid()
             d3.select(this)
                 .style('fill', '#0F0');
 
-            neighbors(d);
+            var neybs = neighbors(d);
         })
         .on('mouseout', function() {
             d3.select(this)
@@ -91,7 +92,7 @@ function cellData()
 
             // Columnar cell data
             data[row].push({
-              id: count,
+              id: 'c' + count,
               index: [row, col],
               value: newValue,
               width: cellSize,
@@ -136,6 +137,13 @@ function neighbors(cell) {
 
         if(nodesContains(neighbor)) {
             console.log("<1>neighbor: " + JSON.stringify(neighbor));
+            var rows = d3.selectAll(".row");
+            console.log("~~> neighbors, rows: " + rows);
+            var neybRow = rows.filter(function(d, i) {
+                console.log("~~> d: " + JSON.stringify(d));
+                //d.index[0] == neighbor[0];
+            });
+            console.log("~~> neybRow: " + neybRow);
             result.push(neighbor);
         }
     });
