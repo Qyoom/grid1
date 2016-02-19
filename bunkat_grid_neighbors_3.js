@@ -16,14 +16,11 @@ function grid()
     var gridData = cellData();
 
     /** TODO: NIX Diagnostics *******************************/
-    console.log("gridData num rows: " + gridData.length);
-    console.log("gridData num cols: " + gridData[1].length);
+    console.log("gridData.length: " + gridData.length);
     console.log("gridData: " + JSON.stringify(gridData));
     console.log("each cell:")
-    _.each(gridData, function(row) {
-        _.each(row, function(cell) {
-            console.log("grid TOP, cell: " + JSON.stringify(cell));
-        });
+    _.each(gridData, function(cell) {
+        console.log("cell: " + JSON.stringify(cell));
     });
     console.log("--------------------------")
     /********************************************************/
@@ -69,7 +66,8 @@ function grid()
  */
 function cellData()
 {
-    var data = new Array(); // array of rows
+    // Array of cells
+    var data = new Array();
 
     var startX = cellSize / 2;
     var startY = cellSize / 2;
@@ -83,9 +81,6 @@ function cellData()
     // Row iterator
     for (var row = 0; row < numRows; row++)
     {
-        // cells
-        data = new Array();
-
         // Column/cell iterator
         for (var col = 0; col < numCols; col++)
         {
